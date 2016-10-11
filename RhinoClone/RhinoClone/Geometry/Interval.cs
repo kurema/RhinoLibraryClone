@@ -105,31 +105,31 @@ namespace Rhino.Geometry
             T1 = -temp;
         }
 
-        public double ParamaterAt(double noramlizedParamater)
+        public double ParameterAt(double noramlizedParameter)
         {
-            return (1.0 - noramlizedParamater) * T0 + noramlizedParamater * T1;
+            return (1.0 - noramlizedParameter) * T0 + noramlizedParameter * T1;
         }
         public Interval ParameterIntervalAt(Interval normalizedInterval)
         {
-            double t0 = this.ParamaterAt(normalizedInterval.T0);
-            double t1 = this.ParamaterAt(normalizedInterval.T1);
+            double t0 = this.ParameterAt(normalizedInterval.T0);
+            double t1 = this.ParameterAt(normalizedInterval.T1);
             return new Interval(t0, t1);
         }
-        public double NormalizedParamaterAt(double paramater)
+        public double NormalizedParameterAt(double parameter)
         {
             if (this.IsSingleton) { return T0; }
-            else { return (paramater - T0) / this.Length; }
+            else { return (parameter - T0) / this.Length; }
         }
-        public Interval NormalizedIntervalAt(Interval paramater)
+        public Interval NormalizedIntervalAt(Interval parameter)
         {
-            return new Interval(NormalizedParamaterAt(paramater.T0), NormalizedParamaterAt(paramater.T1));
+            return new Interval(NormalizedParameterAt(parameter.T0), NormalizedParameterAt(parameter.T1));
         }
-        public bool IncludesParamater(double t)
+        public bool IncludesParameter(double t)
         {
-            return IncludesParamater(t, false);
+            return IncludesParameter(t, false);
         }
 
-        public bool IncludesParamater(double t,bool strict)
+        public bool IncludesParameter(double t,bool strict)
         {
             if (strict)
             {
@@ -144,7 +144,7 @@ namespace Rhino.Geometry
         }
         public bool IncludesInterval(Interval intarval,bool strict)
         {
-            return this.IncludesParamater(T0, strict) && this.IncludesParamater(T1, strict);
+            return this.IncludesParameter(T0, strict) && this.IncludesParameter(T1, strict);
         }
         public static Interval FromIntersection(Interval a,Interval b)
         {

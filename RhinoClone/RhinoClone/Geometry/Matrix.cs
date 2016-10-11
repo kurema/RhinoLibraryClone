@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MathNet.Numerics.LinearAlgebra.Double;
+
 namespace Rhino.Geometry
 {
     public class Matrix
@@ -170,7 +172,31 @@ namespace Rhino.Geometry
 
         public bool Invert(double zeroTolerance)
         {
-            throw new NotImplementedException();
+            //ToDo:Implement SparceMatrix version.
+            return Invert();
+        }
+        public bool Invert()
+        {
+            var matrix = DenseMatrix.OfArray(this._Body);
+            try
+            {
+                if (this.IsSquare)
+                {
+                    _Body = matrix.Inverse().ToArray();
+                }else
+                {
+                    // 以下の行は次を参照して書かれました。
+                    // http://www.maroon.dti.ne.jp/jyaku9/koneta/koneta7/koneta7-1.html
+                    var svd = matrix.Svd();
+                    var S = new DiagonalMatrix(matrix.RowCount, matrix.ColumnCount, (1 / svd.S).ToArray());
+                    _Body = (svd.VT.Transpose() * S.Transpose() * svd.U.Transpose()).ToArray();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
         //ToDo:Implement RowReduce and BackSolve when you use.
 
