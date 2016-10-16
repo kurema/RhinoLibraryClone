@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rhino.Geometry
 {
-    public struct PointGeneral:IEnumerable<double>,IComparable
+    public struct VectorGeneral:IEnumerable<double>,IComparable
     {
         private double[] _Content;
         public double this[int index]
@@ -70,12 +70,12 @@ namespace Rhino.Geometry
             }
         }
 
-        public PointGeneral(params double[] coordinate)
+        public VectorGeneral(params double[] coordinate)
         {
             this._Content = coordinate;
         }
 
-        public PointGeneral(PointGeneral original)
+        public VectorGeneral(VectorGeneral original)
         {
             var result = new double[original.Dimension];
             for(int i = 0; i < original.Dimension; i++)
@@ -85,47 +85,47 @@ namespace Rhino.Geometry
             this._Content = result;
         }
 
-        public static PointGeneral Multiply(PointGeneral a, double b)
+        public static VectorGeneral Multiply(VectorGeneral a, double b)
         {
             var temp = new double[a.Dimension];
             for(int i = 0; i < a.Dimension; i++)
             {
                 temp[i] = a[i] * b;
             }
-            return new PointGeneral(temp);
+            return new VectorGeneral(temp);
         }
 
-        public static PointGeneral Multiply(double b,PointGeneral a)
+        public static VectorGeneral Multiply(double b,VectorGeneral a)
         {
             return Multiply(a, b);
         }
 
-        public static PointGeneral operator *(PointGeneral a,double b)
+        public static VectorGeneral operator *(VectorGeneral a,double b)
         {
             return Multiply(a, b);
         }
 
-        public static PointGeneral operator *(double b,PointGeneral a)
+        public static VectorGeneral operator *(double b,VectorGeneral a)
         {
             return Multiply(a, b);
         }
 
-        public static PointGeneral Divide(PointGeneral a,double b)
+        public static VectorGeneral Divide(VectorGeneral a,double b)
         {
             var temp = new double[a.Dimension];
             for (int i = 0; i < a.Dimension; i++)
             {
                 temp[i] = a[i] / b;
             }
-            return new PointGeneral(temp);
+            return new VectorGeneral(temp);
         }
 
-        public static PointGeneral operator /(double b, PointGeneral a)
+        public static VectorGeneral operator /(double b, VectorGeneral a)
         {
             return Divide(a, b);
         }
 
-        public static PointGeneral Add(PointGeneral a,PointGeneral b)
+        public static VectorGeneral Add(VectorGeneral a,VectorGeneral b)
         {
             var dimensionMax = Math.Max(a.Dimension, b.Dimension);
             var dimensionMin = Math.Min(a.Dimension, b.Dimension);
@@ -139,15 +139,15 @@ namespace Rhino.Geometry
                 if (a.Dimension > b.Dimension) { temp[i] = a[i]; }
                 else { temp[i] = b[i]; }
             }
-            return new PointGeneral(temp);
+            return new VectorGeneral(temp);
         }
 
-        public static PointGeneral operator +(PointGeneral a,PointGeneral b)
+        public static VectorGeneral operator +(VectorGeneral a,VectorGeneral b)
         {
             return Add(a, b);
         }
 
-        public static PointGeneral Subtract(PointGeneral a, PointGeneral b)
+        public static VectorGeneral Subtract(VectorGeneral a, VectorGeneral b)
         {
             var dimensionMax = Math.Max(a.Dimension, b.Dimension);
             var dimensionMin = Math.Min(a.Dimension, b.Dimension);
@@ -161,40 +161,40 @@ namespace Rhino.Geometry
                 if (a.Dimension > b.Dimension) { temp[i] = a[i]; }
                 else { temp[i] = -b[i]; }
             }
-            return new PointGeneral(temp);
+            return new VectorGeneral(temp);
         }
 
-        public static PointGeneral operator -(PointGeneral a, PointGeneral b)
+        public static VectorGeneral operator -(VectorGeneral a, VectorGeneral b)
         {
             return Subtract(a, b);
         }
 
-        public static bool operator ==(PointGeneral a,PointGeneral b)
+        public static bool operator ==(VectorGeneral a,VectorGeneral b)
         {
             return a.CompareTo(b) == 0;
         }
 
-        public static bool operator !=(PointGeneral a, PointGeneral b)
+        public static bool operator !=(VectorGeneral a, VectorGeneral b)
         {
             return a.CompareTo(b) != 0;
         }
 
-        public static bool operator <(PointGeneral a, PointGeneral b)
+        public static bool operator <(VectorGeneral a, VectorGeneral b)
         {
             return a.CompareTo(b) < 0;
         }
 
-        public static bool operator <=(PointGeneral a, PointGeneral b)
+        public static bool operator <=(VectorGeneral a, VectorGeneral b)
         {
             return a.CompareTo(b) <= 0;
         }
 
-        public static bool operator >(PointGeneral a, PointGeneral b)
+        public static bool operator >(VectorGeneral a, VectorGeneral b)
         {
             return a.CompareTo(b) > 0;
         }
 
-        public static bool operator >=(PointGeneral a, PointGeneral b)
+        public static bool operator >=(VectorGeneral a, VectorGeneral b)
         {
             return a.CompareTo(b) >= 0;
         }
@@ -202,10 +202,10 @@ namespace Rhino.Geometry
 
         public override bool Equals(object obj)
         {
-            return obj is PointGeneral && this == (PointGeneral)obj;
+            return obj is VectorGeneral && this == (VectorGeneral)obj;
         }
 
-        public bool Equal(PointGeneral target)
+        public bool Equal(VectorGeneral target)
         {
             return target == this;
         }
@@ -220,7 +220,7 @@ namespace Rhino.Geometry
             return result;
         }
 
-        public bool EpsilonEquals(PointGeneral target,double epsilon)
+        public bool EpsilonEquals(VectorGeneral target,double epsilon)
         {
             for (int i = 0; i < this.Dimension; i++)
             {
@@ -241,7 +241,7 @@ namespace Rhino.Geometry
             return result;
         }
 
-        public int CompareTo(PointGeneral target)
+        public int CompareTo(VectorGeneral target)
         {
             for(int i = 0; i < target.Dimension; i++)
             {
@@ -253,9 +253,9 @@ namespace Rhino.Geometry
 
         public int CompareTo(object obj)
         {
-            if(obj is PointGeneral)
+            if(obj is VectorGeneral)
             {
-                return this.CompareTo((PointGeneral)obj);
+                return this.CompareTo((VectorGeneral)obj);
             }
             throw new ArgumentException();
         }
@@ -270,6 +270,61 @@ namespace Rhino.Geometry
             return ((IEnumerable<double>)_Content).GetEnumerator();
         }
 
+        public double DistanceTo(VectorGeneral other)
+        {
+            return (this - other).Length;
+        }
+        public double Length
+        {
+            get
+            {
+                return Math.Sqrt(this.SquareLength);
+            }
+        }
 
+        public double SquareLength
+        {
+            get
+            {
+                double result = 0;
+                foreach (var item in this)
+                {
+                    result += item * item;
+                }
+                return result;
+            }
+        }
+
+        public void SetByFunction(Func<int, double, double> f)
+        {
+            for (int i = 0; i < Dimension; i++)
+            {
+                this[i] = f(i, this[i]);
+            }
+        }
+
+        public static VectorGeneral GenerateMatrix(Func<int, double> f, int dimension)
+        {
+            double[] array = new double[dimension];
+            var result = new VectorGeneral(array);
+            result.SetByFunction((a, b) => f(a));
+            return result;
+        }
+
+        public bool Unitize()
+        {
+            double length = this.Length;
+            if (!this.IsValid) return false;
+            this.SetByFunction((a, b) => b / length);
+            return true;
+        }
+
+        public VectorGeneral Unitized { get
+            {
+                var result = this;
+                result.Unitize();
+                return result;
+            }
+        }
     }
 }

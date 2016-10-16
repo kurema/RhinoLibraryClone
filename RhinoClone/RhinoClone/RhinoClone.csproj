@@ -8,7 +8,7 @@
     <ProjectGuid>{CADC93E3-398D-442D-9810-C7385DE834DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RhinoClone</RootNamespace>
+    <RootNamespace>Rhino</RootNamespace>
     <AssemblyName>RhinoClone</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -34,9 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\Point3dList.cs" />
     <Compile Include="Geometry\Interval.cs" />
+    <Compile Include="Geometry\Line.cs" />
+    <Compile Include="Geometry\LineGeneral.cs" />
     <Compile Include="Geometry\Matrix.cs" />
     <Compile Include="Geometry\Point.cs" />
+    <Compile Include="Geometry\Point2d.cs" />
+    <Compile Include="Geometry\Point3d.cs" />
+    <Compile Include="Geometry\Point4d.cs" />
+    <Compile Include="Geometry\Polyline.cs" />
+    <Compile Include="Geometry\Vector3d.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RhinoMath.cs" />
   </ItemGroup>
